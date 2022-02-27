@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace App\Model;
 
 use DateTime;
+use JsonSerializable;
 
-class NewsDTO
+class NewsDTO implements JsonSerializable
 {
+
+	private const FIELD_TITLE = 'title';
+	private const FIELD_CREATED = 'created';
+	private const FIELD_INTERNAL_LINK = 'internalLink';
+	private const FIELD_EXTERNAL_LINK = 'externalLink';
 
 	private string $title;
 
@@ -63,5 +69,18 @@ class NewsDTO
 		$this->externalLink = $externalLink;
 
 		return $this;
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function jsonSerialize(): array
+	{
+		return [
+			self::FIELD_TITLE => $this->title,
+			self::FIELD_CREATED => $this->created,
+			self::FIELD_INTERNAL_LINK => $this->internalLink,
+			self::FIELD_EXTERNAL_LINK => $this->externalLink,
+		];
 	}
 }

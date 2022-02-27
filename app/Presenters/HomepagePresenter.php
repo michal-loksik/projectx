@@ -29,6 +29,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		]);
 	}
 
+	public function renderJson(): void
+	{
+		$this->sendJson(
+			$this->getNews(100)
+		);
+	}
+
 	/**
 	 * @param int $limit
 	 * @return NewsDTO[]
