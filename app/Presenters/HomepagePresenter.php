@@ -11,13 +11,21 @@ use Nette;
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
 
+	private const CACHE_KEY_YCOMBINATOR = 'ycombinator';
+	private const CACHE_TTL_YCOMBINATOR = '5 minutes';
+
 	private YcombinatorPageParserFactory $ycombinatorPageParser;
 
-	public function __construct(YcombinatorPageParserFactory $ycombinatorPageParserFactory)
-	{
+	private Nette\Caching\Cache $cache;
+
+	public function __construct(
+		YcombinatorPageParserFactory $ycombinatorPageParserFactory,
+		Nette\Caching\Cache $cache
+	) {
 		parent::__construct();
 
 		$this->ycombinatorPageParser = $ycombinatorPageParserFactory;
+		$this->cache = $cache;
 	}
 
 	public function renderDefault(): void
@@ -42,8 +50,23 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	 */
 	private function getNews(int $limit): array
 	{
-		$parser = $this->ycombinatorPageParser->create();
+		/** @var NewsDTO[]|null $cachedNews */
+		$cachedNews = $this->cache->load(self::CACHE_KEY_YCOMBINATOR);
+		if ($cachedNews !== null) {
+			return $cachedNews;
+		}
 
-		return $parser->getNews($limit);
+		$parser = $this->ycombinatorPageParser->create();
+		$news = $parser->getNews($limit);
+
+		$this->cache->save(
+			self::CACHE_KEY_YCOMBINATOR,
+			$news,
+			[
+				Nette\Caching\Cache::EXPIRATION => self::CACHE_TTL_YCOMBINATOR,
+			]
+		);
+
+		return $news;
 	}
 }

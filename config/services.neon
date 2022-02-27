@@ -1,4 +1,5 @@
 services:
 	- App\Router\RouterFactory::createRouter
 	- App\Model\YcombinatorPageParserFactory(%ycombinator.baseUrl%, %ycombinator.nextPage%)
+	- Nette\Caching\Cache
 
