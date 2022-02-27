@@ -13,7 +13,11 @@ class DOMLoader
 	{
 		$dom = new DOMDocument();
 		libxml_use_internal_errors(true);
-		$dom->loadHTMLFile($url);
+
+		$content = file_get_contents($url);
+		$content = mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'); // fixed encoding
+
+		$dom->loadHTML($content);
 
 		return $dom;
 	}
