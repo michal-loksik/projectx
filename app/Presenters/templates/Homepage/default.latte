@@ -1,1 +1,18 @@
 {block content}
+
+<table class="table table-striped">
+	<tbody>
+	{foreach $latestNews as $newsDTO}
+		<tr>
+			<th>
+				<em>{$iterator->getCounter()}.</em> <a href="{$newsDTO->getExternalLink()}">{$newsDTO->getTitle()}</a>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<a href="{$newsDTO->getInternalLink()}">comments</a> - {$newsDTO->getCreated()->format('d.m.Y H:i:s')}
+			</td>
+		</tr>
+	{/foreach}
+	</tbody>
+</table>

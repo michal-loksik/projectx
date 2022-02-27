@@ -1,5 +1,9 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Method App\\\\Model\\\\YcombinatorPageParser\\:\\:getCreatedDateTimeAndInternalLink\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Model/YcombinatorPageParser.php
 
 		-
 			message: "#^Cannot call method isMethod\\(\\) on Nette\\\\Application\\\\Request\\|null\\.$#"

@@ -1,4 +1,7 @@
 parameters:
+	ycombinator:
+		baseUrl: 'https://news.ycombinator.com/'
+		nextPage: 'https://news.ycombinator.com/news?p='
 
 application:
 	errorPresenter: Error
