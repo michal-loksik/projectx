@@ -1,0 +1,18 @@
+parameters:
+	ignoreErrors:
+
+		-
+			message: "#^Cannot call method isMethod\\(\\) on Nette\\\\Application\\\\Request\\|null\\.$#"
+			count: 1
+			path: app/Presenters/Error4xxPresenter.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/Presenters/Error4xxPresenter.php
+
+		-
+			message: "#^Method App\\\\Router\\\\RouterFactory\\:\\:createRouter\\(\\) return type has no value type specified in iterable type Nette\\\\Application\\\\Routers\\\\RouteList\\.$#"
+			count: 1
+			path: app/Router/RouterFactory.php
+
